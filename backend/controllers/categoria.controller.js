@@ -13,7 +13,6 @@ const obtenerCategorias = async (req, res) => {
 };
 
 
-// Crear categoría
 const crearCategoria = async (req, res) => {
 
     try {

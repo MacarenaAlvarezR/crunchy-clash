@@ -1,7 +1,5 @@
 const pool = require("../config/db");
 
-
-// Crear pedido
 const crearPedido = async (req, res) => {
 
     const client = await pool.connect();
@@ -13,7 +11,7 @@ const crearPedido = async (req, res) => {
         
 
 
-        // Validar productos
+        // VALIDAR PRODUCT
         if (!productos || productos.length === 0) {
 
             return res.status(400).json({
@@ -23,11 +21,11 @@ const crearPedido = async (req, res) => {
         }
 
 
-        // Iniciar transacción
+  
         await client.query("BEGIN");
 
 
-        // Crear pedido
+        // CREAR PEDIDO
         const pedido = await client.query(
             `INSERT INTO pedido
             (id_usuario)
@@ -42,12 +40,12 @@ const crearPedido = async (req, res) => {
         let total = 0;
 
 
-        // Recorrer productos
+        // RRCORRER PRODUCT
         for (const item of productos) {
 
 
 
-            // Buscar producto
+            // BUSCAR 
             const producto = await client.query(
                 `SELECT *
                  FROM producto
@@ -68,7 +66,7 @@ const crearPedido = async (req, res) => {
             const datos = producto.rows[0];
 
 
-            // Verificar stock
+            // VERIFICAR STOCK
             if (datos.stock < item.cantidad) {
 
                 throw new Error(
@@ -83,7 +81,7 @@ const crearPedido = async (req, res) => {
             total += subtotal;
 
 
-            // Guardar detalle
+            //DETALLE
             await client.query(
                 `INSERT INTO detalle_pedido
                 (
@@ -102,7 +100,7 @@ const crearPedido = async (req, res) => {
             );
 
 
-            // Descontar stock
+            // DESCONTAR STOCK
             await client.query(
                 `UPDATE producto
                  SET stock = stock - $1
@@ -116,7 +114,7 @@ const crearPedido = async (req, res) => {
         }
 
 
-        // Actualizar total del pedido
+        // ACTUALIZACION TOTAL PEDIDO
         const actualizado = await client.query(
             `UPDATE pedido
              SET total = $1
@@ -129,7 +127,7 @@ const crearPedido = async (req, res) => {
         );
 
 
-        // Confirmar cambios
+        // CONFIRMAR CAMBIOS
         await client.query("COMMIT");
 
 
@@ -159,7 +157,7 @@ const crearPedido = async (req, res) => {
 };
 
 
-// Admin: ver todos los pedidos
+// Admin (ver todos los pedidos)
 const obtenerPedidos = async (req, res) => {
 
     try {
@@ -198,7 +196,7 @@ const obtenerPedidos = async (req, res) => {
 
 
 
-// Cliente: ver sus propios pedidos
+// Cliente  (ver sus propios pedidos)
 const obtenerMisPedidos = async (req, res) => {
 
     try {
@@ -233,7 +231,7 @@ const obtenerMisPedidos = async (req, res) => {
 
 
 
-// Admin: cambiar estado del pedido
+// Admin(cambiar estado del pedido)
 const actualizarEstadoPedido = async (req, res) => {
 
     try {
@@ -310,7 +308,7 @@ const obtenerPedidoDetalle = async (req, res) => {
         let valores;
 
 
-        // Admin puede ver cualquier pedido
+        // Admin (puede ver cualquier pedido)
         if (id_rol === 2) {
 
             consulta = `
@@ -333,7 +331,7 @@ const obtenerPedidoDetalle = async (req, res) => {
 
         } else {
 
-            // Cliente solo ve sus pedidos
+            // Cliente (solo ve sus pedidos)
             consulta = `
                 SELECT 
                     p.id_pedido,

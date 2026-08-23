@@ -1,7 +1,7 @@
 const pool = require("../config/db");
 
 
-// Obtener productos
+// OBTENER PRODUCT
 const obtenerProductos = async (req, res) => {
     try {
 
@@ -16,6 +16,7 @@ const obtenerProductos = async (req, res) => {
                 p.imagen,
                 p.activo,
                 p.personalizable,
+                p.id_categoria,
                 c.nombre AS categoria
              FROM producto p
              INNER JOIN categoria c
@@ -36,7 +37,7 @@ const obtenerProductos = async (req, res) => {
 };
 
 
-// Crear producto
+// CREAR PRODUCT
 const crearProducto = async (req, res) => {
 
     try {
@@ -92,7 +93,7 @@ const crearProducto = async (req, res) => {
         });
     }
 };
-
+//OBETENER PROD CAT
 const obtenerProductosPorCategoria = async (req, res) => {
     try {
 
@@ -128,7 +129,7 @@ const obtenerProductosPorCategoria = async (req, res) => {
         });
     }
 };
-
+//OBTENER PROD ID
 const obtenerProductoPorId = async (req, res) => {
 
     try {
@@ -235,15 +236,15 @@ const actualizarProducto = async (req, res) => {
 
     } catch (error) {
 
-        console.error("Error actualizando producto:", error);
+        console.error("Error al actualizar el producto:", error);
 
         res.status(500).json({
-            error: "Error al actualizar producto"
+            error: error.message
         });
     }
 };
 
-// Desactivar producto
+// DESACTIVAR
 const desactivarProducto = async (req, res) => {
 
     try {
@@ -284,7 +285,7 @@ const desactivarProducto = async (req, res) => {
 
 
 
-// Activar producto
+// ACTIVAR
 const activarProducto = async (req, res) => {
 
     try {

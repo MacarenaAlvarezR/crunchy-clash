@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 
-// Login de usuario
 const login = async (req, res) => {
 
     try {
