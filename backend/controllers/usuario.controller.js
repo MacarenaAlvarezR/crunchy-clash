@@ -14,6 +14,7 @@ const obtenerUsuarios = async (req, res) => {
                 u.correo,
                 u.telefono,
                 u.direccion,
+                u.id_rol,
                 r.nombre AS rol
              FROM usuario u
              INNER JOIN rol r
