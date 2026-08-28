@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const categoriaRoutes = require("./routes/categoria.routes");
 const productoRoutes = require("./routes/producto.routes");
+const coberturaRoutes = require("./routes/cobertura.routes");
 const usuarioRoutes = require("./routes/usuario.routes");
 const authRoutes = require("./routes/auth.routes");
 const pedidoRoutes = require("./routes/pedido.routes");
@@ -48,8 +49,10 @@ app.get("/api/health", async (req, res) => {
 // Rutas API
 app.use("/api/categorias", categoriaRoutes);
 app.use("/api/productos", productoRoutes);
+app.use("/api/coberturas", coberturaRoutes);
 app.use("/api/usuarios", usuarioRoutes);
 app.use("/api", authRoutes);
 app.use("/api/pedidos", pedidoRoutes);
+
 
 module.exports = app;

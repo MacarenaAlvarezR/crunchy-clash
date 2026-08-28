@@ -44,39 +44,45 @@ const crearPedido = async (req, res) => {
         for (const item of productos) {
 
 
+            if (!item.personalizada) {
 
-            // BUSCAR 
-            const producto = await client.query(
-                `SELECT *
-                 FROM producto
-                 WHERE id_producto = $1`,
-                [item.id_producto]
-            );
-
-
-            if (producto.rows.length === 0) {
-
-                throw new Error(
-                    "Producto no encontrado"
+                const producto = await client.query(
+                    `
+                    SELECT *
+                    FROM producto
+                    WHERE id_producto = $1
+                    `,
+                    [item.id_producto]
                 );
 
-            }
+
+                if (producto.rows.length === 0) {
+
+                    throw new Error(
+                        "Producto no encontrado"
+                    );
+
+                }
+
+                const datos =
+                    producto.rows[0];
 
 
-            const datos = producto.rows[0];
+                // VERIFICAR STOCK
+
+                if (
+                    datos.stock <
+                    item.cantidad
+                ) {
+
+                    throw new Error(
+                        `Stock insuficiente para ${datos.nombre}`
+                    );
+
+                }
 
 
-            // VERIFICAR STOCK
-            if (datos.stock < item.cantidad) {
-
-                throw new Error(
-                    `Stock insuficiente para ${datos.nombre}`
-                );
-
-            }
-
-
-            const subtotal = datos.precio * item.cantidad;
+            const subtotal = Number(datos.precio) * item.cantidad;
 
             total += subtotal;
 
@@ -109,10 +115,284 @@ const crearPedido = async (req, res) => {
                     item.cantidad,
                     item.id_producto
                 ]
-            );
+                );
+                continue;
 
         }
 
+            
+            //band personalizada
+
+            if (
+                !item.banderilla ||
+                !item.banderilla.id_producto
+            ) {
+
+                throw new Error(
+                    "La banderilla personalizada no tiene una banderilla válida"
+                );
+
+            }
+
+            const banderilla =
+                await client.query(
+                    `
+                    SELECT *
+                    FROM producto
+                    WHERE id_producto = $1
+                    `,
+                    [
+                        item.banderilla.id_producto
+                    ]
+                );
+
+
+            if (banderilla.rows.length === 0) {
+
+                throw new Error(
+                    "Banderilla no encontrada"
+                );
+
+            }
+
+            const datosBanderilla =
+                banderilla.rows[0];
+
+            if (
+                datosBanderilla.stock <
+                item.cantidad
+            ) {
+
+                throw new Error(
+                    `Stock insuficiente para ${datosBanderilla.nombre}`
+                );
+
+            }
+            
+            let precioUnitario =
+                Number(datosBanderilla.precio);
+            let descripcion =
+                datosBanderilla.nombre;
+            
+            let coberturaExtra = 0;
+
+
+            if (
+                item.cobertura &&
+                item.cobertura.id_cobertura
+            ) {
+
+                const cobertura =
+                    await client.query(
+                        `
+                        SELECT *
+                        FROM cobertura
+                        WHERE id_cobertura = $1
+                        `,
+                        [
+                            item.cobertura.id_cobertura
+                        ]
+                    );
+
+                if (cobertura.rows.length === 0) {
+
+                    throw new Error(
+                        "Cobertura no encontrada"
+                    );
+
+                }
+
+
+                const datosCobertura =
+                    cobertura.rows[0];
+                
+                
+                const nombreCobertura =
+                    datosCobertura.nombre
+                        .toLowerCase();
+
+
+                if (
+                    nombreCobertura === "papa"
+                ) {
+
+                    coberturaExtra = 500;
+
+                } else if (
+                    nombreCobertura === "flamin" ||
+                    nombreCobertura === "dorito" ||
+                    nombreCobertura === "ramen"
+                ) {
+
+                    coberturaExtra = 1000;
+
+                }
+
+                precioUnitario +=
+                    coberturaExtra;
+
+
+                descripcion +=
+                    ` + ${datosCobertura.nombre}`;
+
+            }
+
+            //bebida
+            if (
+                item.bebida &&
+                item.bebida.id_producto
+            ) {
+
+                const bebida =
+                    await client.query(
+                        `
+                        SELECT *
+                        FROM producto
+                        WHERE id_producto = $1
+                        `,
+                        [
+                            item.bebida.id_producto
+                        ]
+                    );
+
+
+                if (bebida.rows.length === 0) {
+
+                    throw new Error(
+                        "Bebida no encontrada"
+                    );
+                }
+
+
+                const datosBebida =
+                    bebida.rows[0];
+                if (datosBebida.stock < item.cantidad) {
+
+                    throw new Error(
+                        `Stock insuficiente para ${datosBebida.nombre}`
+                    );
+
+                }
+
+
+                precioUnitario +=
+                    Number(datosBebida.precio);
+
+
+                descripcion +=
+                    ` + ${datosBebida.nombre}`;
+                await client.query(
+                    `
+                    UPDATE producto
+                    SET stock = stock - $1
+                    WHERE id_producto = $2
+                    `,
+                    [
+                        item.cantidad,
+                        datosBebida.id_producto
+                    ]
+                );
+
+            }
+            //snack
+            if (
+                item.snack &&
+                item.snack.id_producto
+            ) {
+
+                const snack =
+                    await client.query(
+                        `
+                        SELECT *
+                        FROM producto
+                        WHERE id_producto = $1
+                        `,
+                        [
+                            item.snack.id_producto
+                        ]
+                    );
+
+
+                if (snack.rows.length === 0) {
+
+                    throw new Error(
+                        "Snack no encontrado"
+                    );
+
+                }
+                const datosSnack =
+                    snack.rows[0];
+                
+                if (datosSnack.stock < item.cantidad) {
+
+                    throw new Error(
+                        `Stock insuficiente para ${datosSnack.nombre}`
+                    );
+
+                }
+
+
+                precioUnitario +=
+                    Number(datosSnack.precio);
+
+
+                descripcion +=
+                    ` + ${datosSnack.nombre}`;
+
+                await client.query(
+                    `
+                    UPDATE producto
+                    SET stock = stock - $1
+                    WHERE id_producto = $2
+                    `,
+                    [
+                        item.cantidad,
+                        datosSnack.id_producto
+                    ]
+                );
+
+            }
+
+            const subtotal =
+                precioUnitario *
+                item.cantidad;
+
+
+            total += subtotal;
+
+            await client.query(
+                `
+                INSERT INTO detalle_pedido
+                (
+                    id_pedido,
+                    id_producto,
+                    cantidad,
+                    precio_unitario,
+                    descripcion
+                )
+                VALUES ($1,$2,$3,$4,$5)
+                `,
+                [
+                    id_pedido,
+                    datosBanderilla.id_producto,
+                    item.cantidad,
+                    precioUnitario,
+                    descripcion
+                ]
+            );
+            await client.query(
+                `
+                UPDATE producto
+                SET stock = stock - $1
+                WHERE id_producto = $2
+                `,
+                [
+                    item.cantidad,
+                    datosBanderilla.id_producto
+                ]
+            );
+
+        }
 
         // ACTUALIZACION TOTAL PEDIDO
         const actualizado = await client.query(
@@ -206,16 +486,42 @@ const obtenerMisPedidos = async (req, res) => {
 
         const resultado = await pool.query(
             `
-            SELECT *
-            FROM pedido
-            WHERE id_usuario = $1
-            ORDER BY fecha DESC
+            SELECT  p.id_pedido,
+                p.fecha,
+                p.estado,
+                p.total
+            FROM pedido p
+            WHERE p.id_usuario = $1
+            ORDER BY p.fecha DESC
             `,
             [id_usuario]
         );
 
+        const pedidos = resultado.rows;
 
-        res.json(resultado.rows);
+        // Obtener los productos de cada pedido
+        for (const pedido of pedidos) {
+
+            const productos = await pool.query(
+                `
+                SELECT
+                    COALESCE(pr.nombre, 'Banderilla personalizada') AS nombre,
+                    dp.cantidad,
+                    dp.precio_unitario,
+                    dp.descripcion
+                FROM detalle_pedido dp
+                LEFT JOIN producto pr
+                    ON dp.id_producto = pr.id_producto
+                WHERE dp.id_pedido = $1
+                `,
+                [pedido.id_pedido]
+            );
+
+            pedido.productos = productos.rows;
+
+        }
+
+        res.json(pedidos);
 
 
     } catch (error) {
@@ -357,9 +663,9 @@ const obtenerPedidoDetalle = async (req, res) => {
 
 
         const pedido = await pool.query(
-            consulta,
-            valores
+    consulta, valores
         );
+
 
 
         if (pedido.rows.length === 0) {
@@ -374,11 +680,13 @@ const obtenerPedidoDetalle = async (req, res) => {
         const productos = await pool.query(
             `
             SELECT
-                pr.nombre,
+            COALESCE(
+                pr.nombre,'Banderilla personalizada') AS nombre,
                 dp.cantidad,
-                dp.precio_unitario
+                dp.precio_unitario,
+                dp.descripcion
             FROM detalle_pedido dp
-            JOIN producto pr
+            LEFT  JOIN producto pr
             ON dp.id_producto = pr.id_producto
             WHERE dp.id_pedido = $1
             `,

@@ -22,7 +22,7 @@ router.get(
 
 // Cliente ve sus propios pedidos
 router.get(
-    "/mis-pedidos",
+    "/mispedidos",
     verificarToken,
     pedidoController.obtenerMisPedidos
 );
