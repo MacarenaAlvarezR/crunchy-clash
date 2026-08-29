@@ -27,6 +27,14 @@ router.get(
     pedidoController.obtenerMisPedidos
 );
 
+//admin ve pedidos(usuario especifico)
+router.get(
+    "/usuario/:id_usuario",
+    verificarToken,
+    verificarRol(2),
+    pedidoController.obtenerPedidosUsuario
+);
+
 // Ver detalle de un pedido
 router.get(
     "/:id",

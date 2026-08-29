@@ -13,7 +13,10 @@ router.get(
     usuarioController.obtenerUsuarios
 );
 
-router.post("/", usuarioController.crearUsuario);
+router.post("/",
+    verificarToken,
+    verificarRol(2),
+    usuarioController.crearUsuario);
 
 
 module.exports = router;
