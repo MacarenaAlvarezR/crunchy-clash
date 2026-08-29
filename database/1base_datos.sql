@@ -1,4 +1,4 @@
-CREATE DATABASE crunchy_clash;
+
 
 --tabla rol
 CREATE TABLE rol (
