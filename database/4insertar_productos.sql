@@ -11,39 +11,39 @@ INSERT INTO producto
     id_categoria
 )
 VALUES
-(
-    'Banderilla Queso',
-    'Banderilla de queso mozzarella',
-    5990,
-    20,
-    5,
-    'band-queso.jpg',
-    true,
-    true,
-    1
-),
-(
-    'Banderilla Ramen',
-    'Banderilla de salchicha y cubierta con ramen',
-    5000,
-    20,
-    5,
-    'cub-ramen.jpg',
-    true,
-    true,
-    1
-),
-(
-    'Banderilla Clásica',
-    'Banderilla de salchicha y cubierta de panko',
-    3990,
-    20,
-    5,
-    'band-clasic.jpg',
-    true,
-    true,
-    1
-);
+--(
+--    'Banderilla Queso',
+--    'Banderilla de queso mozzarella',
+--    5990,
+--    20,
+--    5,
+--    'band-queso.jpg',
+--    true,
+--    true,
+--    1
+--),
+--(
+--    'Banderilla Ramen',
+--    'Banderilla de salchicha y cubierta con ramen',
+--    5000,
+--    20,
+--    5,
+--    'cub-ramen.jpg',
+--    true,
+--    true,
+--    1
+--),
+--(
+--    'Banderilla Clásica',
+--    'Banderilla de salchicha y cubierta de panko',
+--    3990,
+--    20,
+--    5,
+--    'band-clasic.jpg',
+--    true,
+--    true,
+--    1
+--),
 ( 
 'Banderilla Mixta', 
 'Relleno de queso mozzarella y salchicha', 
@@ -278,4 +278,4 @@ FALSE,
 TRUE, 
 FALSE, 
 3 
-), 
+);
