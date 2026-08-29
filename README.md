@@ -29,14 +29,14 @@ El proyecto tiene como objetivo construir una plataforma web que permita visuali
 * Visual Studio Code
 * Git
 * PostgreSQL
-* Postman 
+* thunder client
 
 ## Estructura del proyecto
 
 - `frontend/`: aplicación desarrollada con React.
 - `backend/`: API REST desarrollada con Node.js y Express.
 - `database/`: scripts SQL utilizados para la base de datos.
-- `docs/`: documentación del proyecto.
+
 
 ## Estado del proyecto
 

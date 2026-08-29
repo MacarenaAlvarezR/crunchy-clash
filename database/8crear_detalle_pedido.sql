@@ -4,6 +4,7 @@ CREATE TABLE detalle_pedido (
     id_producto INTEGER NOT NULL,
     cantidad INTEGER NOT NULL,
     precio_unitario NUMERIC(10,2) NOT NULL,
+    descripcion VARCHAR(255),
 
     CONSTRAINT fk_detalle_pedido
     FOREIGN KEY (id_pedido)

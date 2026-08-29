@@ -1,6 +1,6 @@
 CREATE DATABASE crunchy_clash;
 
-
+--tabla rol
 CREATE TABLE rol (
 
     id_rol SERIAL PRIMARY KEY,
@@ -9,8 +9,7 @@ CREATE TABLE rol (
 
 );
 
-select * from rol;
-
+--tabla usuario
 CREATE TABLE usuario (
 
     id_usuario SERIAL PRIMARY KEY,
@@ -35,7 +34,7 @@ CREATE TABLE usuario (
 
 );
 
-select * from usuario;
+--tabla categoria
 
 CREATE TABLE categoria(
 
@@ -44,13 +43,9 @@ CREATE TABLE categoria(
     nombre VARCHAR(50) NOT NULL
 
 );
-INSERT INTO categoria (nombre)
-VALUES
-('Banderillas'),
-('Bebidas'),
-('Extras');
 
-select * from categoria;
+
+--tabla producto
 
 CREATE TABLE producto (
 
@@ -66,7 +61,7 @@ CREATE TABLE producto (
 
     stock_minimo INTEGER NOT NULL,
 
-    imagen VARCHAR(255) NOT NULL,
+    imagen TEXT NOT NULL,
 
     activo BOOLEAN DEFAULT TRUE,
 
@@ -80,6 +75,30 @@ CREATE TABLE producto (
 
 );
 
-SELECT * FROM producto;
+--tabla cobertura
 
+CREATE TABLE cobertura (
+    id_cobertura SERIAL PRIMARY KEY, nombre VARCHAR(100) NOT NULL, descripcion VARCHAR(255) NOT NULL, 
+    precio NUMERIC(10,2) NOT NULL, imagen TEXT NOT NULL, 
+    activo BOOLEAN DEFAULT TRUE 
+);
+
+--tabla pedido
+
+CREATE TABLE pedido (
+    id_pedido SERIAL PRIMARY KEY, id_usuario INTEGER NOT NULL, fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    estado VARCHAR(30) DEFAULT 'pendiente', 
+    total NUMERIC(10,2) DEFAULT 0, CONSTRAINT fk_pedido_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario) 
+    );
+
+--tabla detalle_pedido
+
+CREATE TABLE detalle_pedido ( id_detalle SERIAL PRIMARY KEY, id_pedido INTEGER NOT NULL, id_producto INTEGER, 
+cantidad INTEGER NOT NULL, precio_unitario NUMERIC(10,2) NOT NULL, 
+descripcion VARCHAR(255), 
+
+CONSTRAINT fk_detalle_pedido FOREIGN KEY (id_pedido) REFERENCES pedido(id_pedido), 
+
+CONSTRAINT fk_detalle_producto FOREIGN KEY (id_producto) REFERENCES producto(id_producto) 
+);
 
