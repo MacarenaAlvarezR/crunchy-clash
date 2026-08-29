@@ -4,7 +4,7 @@
 
 Crunchy Clash es una aplicación web de tienda online desarrollada como proyecto final de la carrera Full Stack JavaScript.
 
-El proyecto tiene como objetivo construir una plataforma web que permita visualizar productos, gestionar usuarios, administrar un carrito de compras y realizar la gestión de pedidos, utilizando tecnologías frontend y backend.
+La plataforma permite visualizar productos, personalizar banderillas, gestionar un carrito de compras, realizar pedidos y administrar productos mediante un panel de administración.
 
 ## 🛠️ Tecnologías utilizadas
 
@@ -35,9 +35,19 @@ El proyecto tiene como objetivo construir una plataforma web que permita visuali
 
 - `frontend/`: aplicación desarrollada con React.
 - `backend/`: API REST desarrollada con Node.js y Express.
-- `database/`: scripts SQL utilizados para la base de datos.
+- `database/`: scripts SQL de la base de datos.
 
+## ✨ Funcionalidades
 
-## Estado del proyecto
+- Registro e inicio de sesión.
+- Catálogo y categorías de productos.
+- Personalización de banderillas.
+- Carrito de compras.
+- Creación y consulta de pedidos.
+- Panel de administración.
+- Gestión de productos y stock.
 
-Actualmente el proyecto se encuentra en desarrollo.
+## 🗄️ Base de datos
+
+El proyecto utiliza **PostgreSQL** con tablas para usuarios, roles, categorías, productos, coberturas, pedidos y detalles de pedidos.
+
