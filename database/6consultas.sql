@@ -42,7 +42,7 @@ nombre,
 stock, 
 stock_minimo 
 FROM producto 
-WHERE stock <= stock_minim o;
+WHERE stock <= stock_minimo;
 
 --mostrar pedid con el usuario que lo realizo
 SELECT 
