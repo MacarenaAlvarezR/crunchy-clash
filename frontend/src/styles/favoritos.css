@@ -1,0 +1,138 @@
+.favoritos {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.favoritos-contenido {
+    width: 100%;
+    max-width: 1000px;
+    padding: 35px;
+    background: #fffaf0;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.09);
+}
+
+.favoritos-contenido h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #4b3535;
+}
+
+.favoritos-vacio {
+    text-align: center;
+    padding: 30px 10px;
+    color: #555;
+}
+
+.favoritos-vacio p {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.favoritos-vacio span {
+    font-size: 14px;
+}
+
+.favoritos-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.favorito-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 15px;
+    border: 1px solid #eee;
+}
+
+.favorito-item img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.favorito-info {
+    flex: 1;
+}
+
+.favorito-info h3 {
+    margin: 0 0 8px;
+    color: #4b3535;
+}
+
+.favorito-info p {
+    margin: 0 0 8px;
+    color: #666;
+    font-size: 14px;
+}
+
+.favorito-info span {
+    font-weight: 700;
+    color: #ec1c50;
+}
+
+.favorito-item button {
+    padding: 8px 14px;
+    border: 2px solid #ec1c50;
+    border-radius: 10px;
+    background: white;
+    color: #ec1c50;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.favorito-item button:hover {
+    background: #ec1c50;
+    color: white;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+
+    .favoritos {
+        padding: 25px 15px;
+    }
+
+    .favoritos-contenido {
+        padding: 20px 15px;
+    }
+
+    .favoritos-contenido h1 {
+        font-size: 20px;
+    }
+
+    .favorito-item {
+        flex-wrap: wrap;
+    }
+
+    .favorito-item img {
+        width: 55px;
+        height: 55px;
+    }
+
+    .favorito-info h3 {
+        font-size: 12px;
+    }
+
+    .favorito-info p {
+        font-size: 10px;
+    }
+
+    .favorito-item button {
+        padding: 6px 9px;
+        font-size: 10px;
+    }
+    span{
+        font-size: 12px;
+    }
+    
+
+}

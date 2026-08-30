@@ -1,0 +1,117 @@
+.registro {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.registro-card {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+    text-align: center;
+}
+
+.registro-card h1 {
+    margin-bottom: 10px;
+    font-size: 32px;
+}
+
+.registro-card>p {
+    margin-bottom: 30px;
+    color: #666;
+}
+
+
+.registro-card form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 8px;
+}
+
+.registro-card label {
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.registro-card input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    background: #fafafa;
+}
+
+.registro-card input:focus {
+    border-color: #999;
+    background: white;
+}
+
+
+.registro-card button {
+    margin-top: 20px;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #222;
+    color: white;
+}
+
+.registro-card button:hover {
+    opacity: 0.9;
+}
+
+
+.registro-card .mensaje-exito {
+    color: green;
+    margin-top: 20px;
+}
+
+.registro-card .mensaje-error {
+    color: #d33;
+    margin-top: 20px;
+}
+
+
+.registro-login {
+    margin-top: 25px;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.registro-card a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.registro-card a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+
+    .registro {
+        padding: 25px 15px;
+    }
+
+    .registro-card {
+        padding: 30px 20px;
+    }
+
+    .registro-card h1 {
+        font-size: 28px;
+    }
+
+}

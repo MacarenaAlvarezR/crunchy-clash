@@ -1,0 +1,439 @@
+.admin {
+    padding: 40px;
+    text-align: center;
+}
+
+.admin h1 {
+    margin-bottom: 10px;
+}
+
+.admin-opciones {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.admin-opciones button {
+    padding: 15px 25px;
+    border: 2px solid #ff8a00;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #fffaf0;
+    color: #4b3535;
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.admin-opciones button:hover {
+    background: #ffe4d6;
+    color: #ec1c50;
+    transform: translateY(-3px);
+}
+
+.admin-contenido,
+.admin-bienvenida {
+    margin: 40px auto;
+    max-width: 1000px;
+    padding: 30px;
+    background: #fffaf0;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.09);
+}
+
+.admin-contenido h2,
+.admin-bienvenida h2 {
+    margin-bottom: 15px;
+}
+
+/*seccion producto*/
+.tabla-productos {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 30px;
+}
+
+.admin-producto-imagen {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+
+.sin-imagen {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff0e6;
+    border-radius: 10px;
+    font-size: 25px;
+}
+
+.tabla-productos table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.tabla-productos th,
+.tabla-productos td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.tabla-productos th {
+    background: #fff0e6;
+    color: #4b3535;
+    font-weight: 700;
+}
+
+.tabla-productos tbody tr:hover {
+    background: #fffaf7;
+}
+
+.tabla-productos tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* formulario editar */
+
+.formulario-editar {
+    margin: 20px 0;
+    padding: 18px 20px;
+    background: white;
+    border: 2px solid #ff8a00;
+    border-radius: 15px;
+    text-align: left;
+}
+
+.formulario-editar h3 {
+    margin: 0 0 15px;
+    color: #4b3535;
+    text-align: center;
+}
+
+.formulario-editar label {
+    display: block;
+    margin-bottom: 5px;
+    color: #4b3535;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.formulario-editar input,
+.formulario-editar textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.formulario-editar input:focus,
+.formulario-editar textarea:focus {
+    border-color: #ff8a00;
+}
+
+.formulario-editar textarea {
+    min-height: 55px;
+    resize: vertical;
+}
+
+/* botones */
+
+.formulario-editar-botones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.formulario-editar-botones button {
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* cancelar */
+
+.formulario-editar-botones button:first-child {
+    border: 2px solid #ccc;
+    background: white;
+    color: #555;
+}
+
+.formulario-editar-botones button:first-child:hover {
+    background: #f2f2f2;
+}
+
+/* guardar */
+
+.formulario-editar-botones button:last-child {
+    border: 2px solid #ec1c50;
+    background: #ec1c50;
+    color: white;
+}
+
+.formulario-editar-botones button:last-child:hover {
+    background: #c91443;
+    transform: translateY(-2px);
+}
+
+.formulario-editar-botones button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-editar {
+    padding: 8px 16px;
+    border: 2px solid #ec1c50;
+    border-radius: 10px;
+    background: white;
+    color: #ec1c50;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-editar:hover {
+    background: #ec1c50;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/*btn estado*/
+
+.btn-estado {
+    border: none;
+    border-radius: 20px;
+    padding: 7px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-estado.activo {
+    background: #e3f7e8;
+    color: #218838;
+}
+
+.btn-estado.inactivo {
+    background: #ffe3e3;
+    color: #d62828;
+}
+
+.btn-estado:hover {
+    transform: translateY(-2px);
+}
+
+/*USUARIOS*/
+
+.admin-usuarios-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.admin-usuarios-header h2 {
+    margin: 0;
+}
+
+.btn-agregar-admin {
+    padding: 9px 15px;
+    border: 2px solid #ff8a00;
+    border-radius: 10px;
+    background: #fffaf0;
+    color: #4b3535;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-agregar-admin:hover {
+    background: #ff8a00;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* FORMULARIO ADMIN */
+
+.formulario-admin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    background: white;
+    border-radius: 15px;
+    border: 1px solid #eee;
+}
+
+.formulario-admin h3 {
+    grid-column: 1 / -1;
+    margin: 0 0 5px;
+    color: #4b3535;
+}
+
+.formulario-admin input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.formulario-admin input:focus {
+    outline: none;
+    border-color: #ff8a00;
+}
+
+.formulario-admin-botones {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.formulario-admin-botones button {
+    padding: 9px 15px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.formulario-admin-botones button:first-child {
+    border: 1px solid #ccc;
+    background: white;
+    color: #555;
+}
+
+.formulario-admin-botones button:last-child {
+    border: 2px solid #ec1c50;
+    background: #ec1c50;
+    color: white;
+}
+
+.formulario-admin-botones button:hover {
+    transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+
+    .admin {
+        padding: 15px;
+    }
+
+    .admin h1 {
+        font-size: 24px;
+    }
+
+    .admin-opciones {
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .admin-opciones button {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+
+    .admin-contenido {
+        margin: 20px 10px;
+        padding: 15px;
+    }
+
+    .tabla-productos {
+        overflow-x: auto;
+    }
+
+    .tabla-productos table {
+        min-width: 600px;
+    }
+
+    .tabla-productos th,
+    .tabla-productos td {
+        padding: 8px;
+        font-size: 13px;
+    }
+
+    .admin-producto-imagen,
+    .sin-imagen {
+        width: 40px;
+        height: 40px;
+    }
+
+    .btn-estado,
+    .btn-editar {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    .formulario-editar {
+        padding: 15px;
+    }
+
+    .formulario-editar input,
+    .formulario-editar textarea {
+        padding: 7px;
+        font-size: 13px;
+    }
+
+    .formulario-editar-botones button {
+        padding: 7px 12px;
+        font-size: 12px;
+    }
+/*USUARIO*/
+    .admin-usuarios-header {
+            flex-direction: column;
+            align-items: stretch;
+        }
+     h3{
+        font-size: 15px;
+     }
+        .admin-usuarios-header h2 {
+            text-align: center;
+            font-size: 15px;
+        }
+    
+        .btn-agregar-admin {
+            width: 100%;
+        }
+    
+        .formulario-admin {
+            grid-template-columns: 1fr;
+            padding: 15px;
+        }
+    
+        .formulario-admin h3 {
+            grid-column: auto;
+        }
+    
+        .formulario-admin-botones {
+            grid-column: auto;
+            flex-direction: column;
+        }
+    
+        .formulario-admin-botones button {
+            width: 100%;
+        }
+
+}

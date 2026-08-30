@@ -1,0 +1,136 @@
+.mis-pedidos {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.pedidos-card {
+    width: 100%;
+    max-width: 650px;
+    background: #fffaf0;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.pedidos-card h1 {
+    text-align: center;
+    color: #4b3535;
+    margin-bottom: 8px;
+}
+
+.pedidos-subtitulo {
+    text-align: center;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.lista-pedidos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.pedido {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.pedido-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.pedido-header h2 {
+    margin: 0;
+    color: #4b3535;
+    font-size: 20px;
+}
+
+.pedido-estado {
+    background: #ffe4d6;
+    color: #ec1c50;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.pedido-info {
+    margin-top: 15px;
+    color: #666;
+}
+
+.pedido-info p {
+    margin: 7px 0;
+}
+
+.sin-pedidos {
+    text-align: center;
+    padding: 30px 10px;
+}
+
+.sin-pedidos-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.sin-pedidos h2 {
+    color: #4b3535;
+}
+
+.sin-pedidos p {
+    color: #777;
+}
+
+.sin-pedidos button,
+.volver-perfil {
+    border: none;
+    border-radius: 12px;
+    padding: 13px 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.sin-pedidos button {
+    background: #ff8a00;
+    color: white;
+}
+
+.volver-perfil {
+    width: 100%;
+    margin-top: 25px;
+    background: #4b3535;
+    color: white;
+}
+
+.mensaje-error {
+    text-align: center;
+    color: #d33;
+    margin: 20px 0;
+}
+
+
+@media (max-width: 600px) {
+
+    .mis-pedidos {
+        padding: 25px 15px;
+    }
+
+    .pedidos-card {
+        padding: 30px 20px;
+    }
+
+    .pedido-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+}

@@ -1,0 +1,113 @@
+.perfil {
+    min-height: calc(100vh - 140px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.perfil-card {
+    width: 100%;
+    max-width: 500px;
+    background: #fffaf0;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    text-align: center;
+}
+
+.perfil-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffe4d6;
+
+    font-size: 40px;
+}
+
+.perfil-card h1 {
+    margin-bottom: 8px;
+    color: #4b3535;
+}
+
+.perfil-bienvenida {
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.perfil-datos {
+    text-align: left;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+.perfil-datos h2 {
+    margin-top: 0;
+    color: #4b3535;
+}
+
+.perfil-datos p {
+    margin: 12px 0;
+    color: #555;
+}
+
+.perfil-opciones {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.perfil-opciones button {
+    flex: 1;
+    padding: 13px 10px;
+    border: 2px solid #ff8a00;
+    border-radius: 12px;
+    background: white;
+    color: #4b3535;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.perfil-opciones button:hover {
+    background: #ffe4d6;
+}
+
+.cerrar-sesion {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 12px;
+    background: #ec1c50;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cerrar-sesion:hover {
+    opacity: 0.9;
+}
+
+
+@media (max-width: 600px) {
+
+    .perfil {
+        padding: 25px 15px;
+    }
+
+    .perfil-card {
+        padding: 30px 20px;
+    }
+
+    .perfil-opciones {
+        flex-direction: column;
+    }
+
+}
