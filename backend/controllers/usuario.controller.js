@@ -95,9 +95,42 @@ const crearUsuario = async (req, res) => {
     }
 };
 
+//registro publico de clientes 
+
+const registrarUsuario = async (req, res) => {
+    try {
+        const {
+            nombre,
+            apellido,
+            correo,
+            password,
+            telefono,
+            direccion
+        } = req.body;
+        const passwordEncriptada = await bcrypt.hash(password, 10);
+        
+        const resultado = await pool.query(
+            `INSERT INTO usuario ( nombre, apellido, correo, password, telefono, direccion, id_rol ) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING id_usuario, nombre, apellido, correo, telefono, direccion, id_rol`,
+            [nombre,
+                apellido,
+                correo,
+                passwordEncriptada,
+                telefono,
+                direccion, 1
+            ]);
+        
+        res.status(201).json(resultado.rows[0]);
+
+    } catch (error) {
+        console.error("Error registrando usuario:", error);
+        
+        res.status(500).json({ error: "Error al registrar usuario" });
+    }
+};
 
 
 module.exports = {
     obtenerUsuarios,
-    crearUsuario
+    crearUsuario,
+    registrarUsuario
 };
