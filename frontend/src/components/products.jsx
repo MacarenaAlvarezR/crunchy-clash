@@ -246,7 +246,7 @@ function Products() {
             <div className="product-category">
 
                 <h3 className="category-title">
-                    🍪 Snacks
+                    🍫 Snacks
                 </h3>
 
 
