@@ -7,7 +7,7 @@ import CrearBanderilla from "./pages/crearBanderilla.jsx";
 import Login from "./pages/login.jsx"
 import Registro from "./pages/registro.jsx"
 import Perfil from "./pages/perfil.jsx";
-import MisPedidos from "./pages/misPedidos.jsx";
+import MisPedidos from "./pages/mispedidos.jsx";
 import Carrito from "./pages/carrito.jsx"
 import Admin from "./pages/admin.jsx";
 import Nosotros from "./pages/nosotros.jsx";
