@@ -247,7 +247,7 @@ function AdminProducts() {
                 }
 
                 const datos = await respuesta.json();
-
+                
                 setProductos(datos);
 
             } catch (error) {
@@ -494,7 +494,14 @@ function AdminProducts() {
 
             )}
 
-
+            {productos.some(
+                (producto) =>
+                    Number(producto.stock) <= Number(producto.stock_minimo)
+            ) && (
+                    <div className="alerta-stock">
+                        ⚠️ Hay productos con stock bajo. Revisa la tabla para ver cuáles.
+                    </div>
+                )}
 
 
             <div className="tabla-productos">
@@ -559,7 +566,22 @@ function AdminProducts() {
                                 </td>
 
                                 <td>
-                                    {producto.stock}
+                                    <div>
+                                        {producto.stock}
+
+                                        {Number(producto.stock) === 0 && (
+                                            <span className="aviso-stock sin-stock">
+                                                🔴 Sin stock
+                                            </span>
+                                        )}
+
+                                        {Number(producto.stock) > 0 &&
+                                            Number(producto.stock) <= Number(producto.stock_minimo) && (
+                                                <span className="aviso-stock stock-bajo">
+                                                    ⚠️ Stock bajo
+                                                </span>
+                                            )}
+                                    </div>
                                 </td>
 
                                 <td>

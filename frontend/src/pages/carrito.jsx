@@ -90,7 +90,7 @@ function Carrito() {
             }));
 
 
-            console.log("PRODUCTOS QUE SE ENVIARÁN:", productos);
+
 
             const respuesta = await fetch(
                 `${import.meta.env.VITE_API_URL}/api/pedidos`,
