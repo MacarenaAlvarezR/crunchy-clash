@@ -20,6 +20,7 @@ function Carrito() {
 
     const [comprando, setComprando] = useState(false);
 
+    const [boleta, setBoleta] = useState(null);
 
     const total = cart.reduce(
         (acumulado, producto) =>
@@ -28,6 +29,14 @@ function Carrito() {
             producto.cantidad,
         0
     );
+
+    const confirmarEliminacion = (accion, mensaje) => {
+        const confirmar = window.confirm(mensaje);
+        if (confirmar) {
+            accion(); 
+            
+        }
+    };
 
     const realizarCompra = async () => {
 
@@ -120,17 +129,18 @@ function Carrito() {
                 );
 
             }
+//mm
+            const idPedido = datos.pedido.id_pedido;
+            const respuestaBoleta = await fetch(`${import.meta.env.VITE_API_URL}/api/pedidos/${idPedido}`, { headers: { "Authorization": `Bearer ${token}` } });
+
+
+            const datosBoleta = await respuestaBoleta.json(); if (!respuestaBoleta.ok) { throw new Error(datosBoleta.error || "El pedido se creó, pero no se pudo cargar la boleta."); }
 
 
             clearCart();
 
 
-            alert(
-                `¡Pedido realizado correctamente! 🧡\nPedido #${datos.pedido.id_pedido}`
-            );
-
-
-            navigate("/mispedidos");
+            setBoleta(datosBoleta);
 
 
         } catch (error) {
@@ -146,6 +156,80 @@ function Carrito() {
         }
 
     };
+
+    //boleta
+    if (boleta) {
+        const { pedido, productos } = boleta;
+        
+        return (
+            <section className="boleta-pantalla"> <div className="boleta">
+                <div className="boleta-encabezado">
+                    <h1> Crunchy Clash 🧡 </h1>
+                    <h2> ¡Compra realizada! 🎉 </h2>
+                    
+                    <p> BOLETA DE COMPRA </p>
+                </div>
+                <div className="boleta-datos">
+                    <p> <strong> Pedido: </strong>{" "} #{pedido.id_pedido} </p>
+                    
+                    <p> <strong> Fecha: </strong>{" "} {new Date(pedido.fecha).toLocaleString("es-CL")} </p>
+                    
+                    <p> <strong> Estado: </strong>{" "}
+                        
+                        <span className="pedido-estado"> {pedido.estado} </span>
+                    </p>
+                
+                </div>
+                <div className="boleta-cliente">
+                    
+                    <h3> Datos del cliente </h3>
+                    
+                    <p> <strong> Nombre: </strong>{" "} {pedido.nombre}{" "} {pedido.apellido} </p>
+                    
+                    <p> <strong> Correo: </strong>{" "} {pedido.correo} </p>
+                </div>
+                
+                <div className="boleta-productos">
+                    <h3> Detalle de compra </h3>
+                    
+                    {productos.map((producto, index) => {
+                        const subtotal = Number(
+                            producto.precio_unitario) * Number(
+                                producto.cantidad);
+                        
+                        return (
+                            <div className="boleta-producto" key={index} >
+                            
+                                <div> <strong> {producto.nombre} </strong> {producto.descripcion && (
+                                    <p> {producto.descripcion} </p>)}
+                                    
+                                    <span> {producto.cantidad} × $ {Number(producto.precio_unitario).toLocaleString("es-CL")} </span>
+                                
+                                </div> <strong> $ {subtotal.toLocaleString("es-CL")}
+                                </strong>
+                            
+                            </div>);
+                    })}
+                </div>
+                
+                <div className="boleta-total">
+                    <span> Total </span> <strong> $ {Number(pedido.total).toLocaleString("es-CL")} </strong>
+                
+                </div>
+                
+                <div className="boleta-acciones">
+                    <button onClick={() => window.print()} > 🖨️ Imprimir / Guardar PDF </button>
+                    
+                    <button onClick={() => navigate("/mispedidos")} >
+                        📦 Ver mis pedidos </button> 
+                        
+                    <button onClick={() => navigate("/")} > 🏠 Volver al inicio </button> 
+                    
+                </div>
+            </div>
+            </section>
+        );
+    }
 
 
 
@@ -252,11 +336,7 @@ function Carrito() {
 
                             <button
                                 className="eliminar"
-                                onClick={() =>
-                                    removeFromCart(
-                                        producto.id_carrito
-                                    )
-                                }
+                                onClick={() => confirmarEliminacion(() => removeFromCart(producto.id_carrito), "¿Deseas eliminar este producto del carrito?")}
                             >
                                 🗑
                             </button>
@@ -268,7 +348,7 @@ function Carrito() {
 
                     <button
                         className="vaciar-carrito"
-                        onClick={clearCart}
+                        onClick={() => confirmarEliminacion(clearCart, "¿Deseas eliminar todos los productos del carrito?")}
                     >
                         Vaciar carrito
                     </button>

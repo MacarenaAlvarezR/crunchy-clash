@@ -66,6 +66,16 @@ function MisPedidos() {
     }, [navigate]);
 
 
+    
+    if (cargando) {
+        return (
+            <section className="mis-pedidos">
+                <div className="pedidos-card"> <h1> Mis pedidos 📦 </h1> <p> Cargando tus pedidos... </p>
+                </div>
+            </section>);
+    }
+
+
     if (cargando) {
         return (
             <section className="mis-pedidos">
@@ -173,8 +183,13 @@ function MisPedidos() {
                                             <li key={index} className="producto-pedido">
                                                 
                                                 <div>
-                                                    <strong> {producto.nombre} </strong> {" × "} {producto.cantidad} {" — $"} {Number(producto.precio_unitario).toLocaleString("es-CL")}
-                                                </div>{producto.descripcion && (<p> {producto.descripcion} </p>
+                                                    <strong> {producto.nombre} </strong> {" × "}
+                                                    {producto.cantidad}
+                                                    {" — $"}
+                                                    {Number(producto.precio_unitario).toLocaleString("es-CL")}
+                                                </div>
+                                                {producto.descripcion && (
+                                                    <p> {producto.descripcion} </p>
                                                 )}
                                             </li>
                                         ))}
@@ -185,6 +200,10 @@ function MisPedidos() {
                                     )}
                                     
                                 </div>
+
+                                
+
+
                             </div>
 
                         ))}

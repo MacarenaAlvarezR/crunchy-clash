@@ -75,7 +75,7 @@ function Navbar() {
                         <FiUser />
 
                         <span>
-                            Mi perfil
+                        👤 {usuario.nombre}
                         </span>
                     </Link>
 
@@ -163,7 +163,7 @@ function Navbar() {
                                     to="/perfil"
                                     onClick={() => setMenuOpen(false)}
                                 >
-                                    👤 Mi perfil
+                                👤 {usuario.nombre}
                                 </Link>
                             </li>
 

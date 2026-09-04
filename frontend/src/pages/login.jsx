@@ -9,12 +9,14 @@ function Login() {
 
     const [mensaje, setMensaje] = useState("");
     const [error, setError] = useState("");
+    const [iniciando, setIniciando] = useState(false);
+    
     const iniciarSesion = async (e) => {
-
         e.preventDefault();
 
         setMensaje("");
         setError("");
+        setIniciando(true);
         try {
 
             const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
@@ -31,12 +33,18 @@ function Login() {
 
             if (!respuesta.ok) {
                 setError(datos.error || "Error al iniciar sesión");
+                setIniciando(false);
                 return;
             }
             localStorage.setItem("token", datos.token);
             localStorage.setItem("usuario", JSON.stringify(datos.usuario));
+
             setMensaje("¡Inicio de sesión exitoso! 🎉");
-            setTimeout(() => { navigate("/Home"); }, 1000);
+
+            setTimeout(() => {
+                navigate("/perfil");
+            }, 1000);
+
         } catch (error) {
 
             console.error(error);
@@ -44,6 +52,8 @@ function Login() {
             setError(
                 "No se pudo conectar con el servidor."
             );
+
+            setIniciando(false);
         }
     };
 
@@ -82,9 +92,7 @@ function Login() {
                         required
                     />
 
-                    <button type="submit">
-                        Iniciar sesión
-                    </button>
+                    <button type="submit" disabled={iniciando} > {iniciando ? "Iniciando..." : "Iniciar sesión"} </button>
 
                 </form>
                 {mensaje && (
