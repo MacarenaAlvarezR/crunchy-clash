@@ -19,7 +19,7 @@ function Navbar() {
 
     const sesionIniciada = !!token && !!usuario;
 
-    const esAdministrador = usuario?.id_rol === 2;
+    const esAdministrador = Number(usuario?.id_rol) === 2;
 
 
     console.log("Usuario:", usuario);
@@ -75,7 +75,7 @@ function Navbar() {
                         <FiUser />
 
                         <span>
-                        👤 {usuario.nombre}
+                                 {usuario.nombre}
                         </span>
                     </Link>
 
@@ -163,7 +163,7 @@ function Navbar() {
                                     to="/perfil"
                                     onClick={() => setMenuOpen(false)}
                                 >
-                                👤 {usuario.nombre}
+                                        👤{usuario.nombre}
                                 </Link>
                             </li>
 
