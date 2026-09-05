@@ -128,9 +128,60 @@ const registrarUsuario = async (req, res) => {
     }
 };
 
+//actualizacion foto de perfil
+const actualizarFotoPerfil = async (req, res) => {
+
+    try {
+
+        const { foto_url } = req.body;
+        const id_usuario = req.usuario.id_usuario;
+
+        if (!foto_url) {
+            return res.status(400).json({
+                error: "La URL de la foto es obligatoria"
+            });
+        }
+
+        const resultado = await pool.query(
+            `UPDATE usuario
+             SET foto_url = $1
+             WHERE id_usuario = $2
+             RETURNING
+                id_usuario,
+                nombre,
+                apellido,
+                correo,
+                telefono,
+                direccion,
+                id_rol,
+                foto_url`,
+            [foto_url, id_usuario]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                error: "Usuario no encontrado"
+            });
+        }
+
+        res.json({
+            mensaje: "Foto de perfil actualizada correctamente",
+            usuario: resultado.rows[0]
+        });
+
+    } catch (error) {
+
+        console.error("Error actualizando foto de perfil:", error);
+
+        res.status(500).json({
+            error: "Error al actualizar la foto de perfil"
+        });
+    }
+};
+
 
 module.exports = {
     obtenerUsuarios,
     crearUsuario,
-    registrarUsuario
+    registrarUsuario, actualizarFotoPerfil
 };

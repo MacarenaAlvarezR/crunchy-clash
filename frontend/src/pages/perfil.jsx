@@ -1,18 +1,117 @@
 import "../styles/perfil.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Perfil() {
 
     const navigate = useNavigate();
 
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
 
+    const [usuario, setUsuario] = useState(usuarioGuardado);
+    const [subiendoFoto, setSubiendoFoto] = useState(false);
     const cerrarSesion = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("usuario");
 
         navigate("/login");
     };
+
+
+    const cambiarFoto = async (e) => {
+
+        const archivo = e.target.files[0];
+
+        if (!archivo) {
+            return;
+        }
+
+        setSubiendoFoto(true);
+
+        try {
+
+            const formData = new FormData();
+
+            formData.append("file", archivo);
+            formData.append(
+                "upload_preset",
+                "crunchy_clash_perfil"
+            );
+
+            const respuestaCloudinary = await fetch(
+                "https://api.cloudinary.com/v1_1/wjgezglc/image/upload",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            const datosCloudinary =
+                await respuestaCloudinary.json();
+
+            if (!respuestaCloudinary.ok) {
+                throw new Error(
+                    datosCloudinary.error?.message ||
+                    "Error al subir la imagen"
+                );
+            }
+
+            const fotoUrl = datosCloudinary.secure_url;
+
+            const token = localStorage.getItem("token");
+
+            const respuestaBackend = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/usuarios/foto`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        foto_url: fotoUrl
+                    })
+                }
+            );
+
+            const datosBackend =
+                await respuestaBackend.json();
+
+            if (!respuestaBackend.ok) {
+                throw new Error(
+                    datosBackend.error ||
+                    "No se pudo guardar la foto"
+                );
+            }
+
+            const usuarioActualizado =
+                datosBackend.usuario;
+
+            localStorage.setItem(
+                "usuario",
+                JSON.stringify(usuarioActualizado)
+            );
+
+            setUsuario(usuarioActualizado);
+
+        } catch (error) {
+
+            console.error(
+                "Error cambiando foto:",
+                error
+            );
+
+            alert(
+                "No se pudo actualizar la foto de perfil."
+            );
+
+        } finally {
+
+            setSubiendoFoto(false);
+        }
+    };
+
+
 
     if (!usuario) {
         return (
@@ -34,8 +133,33 @@ function Perfil() {
             <div className="perfil-card">
 
                 <div className="perfil-icon">
-                    👤
+
+                    {usuario.foto_url ? (
+                        <img
+                            src={usuario.foto_url}
+                            alt="Foto de perfil"
+                        />
+                    ) : (
+                        "👤"
+                    )}
+
                 </div>
+                <label className="cambiar-foto">
+
+                    {subiendoFoto
+                        ? "Subiendo foto..."
+                        : "📷 Cambiar foto"}
+
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={cambiarFoto}
+                        disabled={subiendoFoto}
+                    />
+
+                </label>
+
+
 
                 <h1>¡Hola, {usuario.nombre}! 🐾</h1>
 

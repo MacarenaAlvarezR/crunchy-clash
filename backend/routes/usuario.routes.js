@@ -22,5 +22,11 @@ router.post("/",
     verificarRol(2),
     usuarioController.crearUsuario);
 
+//usuario actualiza su foto de perfil
+router.put(
+    "/foto",
+    verificarToken,
+    usuarioController.actualizarFotoPerfil
+);
 
 module.exports = router;
