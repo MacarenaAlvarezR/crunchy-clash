@@ -10,6 +10,7 @@ function Perfil() {
 
     const [usuario, setUsuario] = useState(usuarioGuardado);
     const [subiendoFoto, setSubiendoFoto] = useState(false);
+    
     const cerrarSesion = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("usuario");

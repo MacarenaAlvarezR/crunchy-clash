@@ -171,10 +171,10 @@ const actualizarFotoPerfil = async (req, res) => {
 
     } catch (error) {
 
-        console.error("Error actualizando foto de perfil:", error);
+        console.error("ERROR REAL FOTO:", error);
 
         res.status(500).json({
-            error: "Error al actualizar la foto de perfil"
+            error: error.message
         });
     }
 };
