@@ -22,9 +22,7 @@ function Navbar() {
     const esAdministrador = Number(usuario?.id_rol) === 2;
 
 
-    console.log("Usuario:", usuario);
-    console.log("Rol:", usuario?.id_rol);
-    console.log("Es administrador:", esAdministrador);
+    
 
 
     return (

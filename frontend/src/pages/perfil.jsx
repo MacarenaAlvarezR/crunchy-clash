@@ -127,7 +127,7 @@ function Perfil() {
             </section>
         );
     }
-    console.log("FOTO PERFIL:", usuario.foto_url);
+    
     return (
         <section className="perfil">
 
@@ -138,8 +138,7 @@ function Perfil() {
                     {usuario.foto_url ? (
                         <img
                             src={usuario.foto_url}
-                            alt="Foto de perfil" onLoad={() => console.log("✅ IMAGEN CARGÓ")}
-                            onError={() => console.log("❌ ERROR AL CARGAR IMAGEN")}
+                            alt="Foto de perfil" 
                         />
                     ) : (
                         "👤"
