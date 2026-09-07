@@ -5,6 +5,9 @@ const jwt = require("jsonwebtoken");
 
 const login = async (req, res) => {
 
+    console.log("🔥 LOGIN LOCAL EJECUTADO");
+
+    
     try {
 
         const { correo, password } = req.body;
@@ -28,6 +31,8 @@ const login = async (req, res) => {
 
         const usuario = resultado.rows[0];
 
+        console.log("USUARIO DESDE BD:", usuario);
+        console.log("FOTO DESDE BD:", usuario.foto_url);
 
         const passwordCorrecta = await bcrypt.compare(
             password,
@@ -68,7 +73,8 @@ const login = async (req, res) => {
                 correo: usuario.correo,
                 telefono: usuario.telefono,
                 direccion: usuario.direccion,
-                id_rol: usuario.id_rol
+                id_rol: usuario.id_rol,
+                foto_url: usuario.foto_url
             }
         });
 

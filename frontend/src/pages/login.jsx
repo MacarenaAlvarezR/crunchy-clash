@@ -18,7 +18,10 @@ function Login() {
         setError("");
         setIniciando(true);
         try {
+            console.log("API QUE USA LOGIN:", import.meta.env.VITE_API_URL);
 
+
+            
             const respuesta = await fetch(`${import.meta.env.VITE_API_URL}/api/login`, {
                 method: "POST",
                 headers: {
@@ -30,6 +33,7 @@ function Login() {
                 })
             });
             const datos = await respuesta.json();
+            console.log("DATOS DEL LOGIN:", datos);
 
             if (!respuesta.ok) {
                 setError(datos.error || "Error al iniciar sesión");
@@ -38,6 +42,16 @@ function Login() {
             }
             localStorage.setItem("token", datos.token);
             localStorage.setItem("usuario", JSON.stringify(datos.usuario));
+
+
+
+
+            console.log("USUARIO GUARDADO:", JSON.parse(localStorage.getItem("usuario")));
+console.log("FOTO GUARDADA:", JSON.parse(localStorage.getItem("usuario"))?.foto_url);
+
+
+
+            
 
             setMensaje("¡Inicio de sesión exitoso! 🎉");
 
